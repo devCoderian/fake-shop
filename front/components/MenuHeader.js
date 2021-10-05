@@ -5,22 +5,20 @@ import { ShoppingCartOutlined} from '@ant-design/icons';
 
 import Link from 'next/link';
 
-import { useDispatch, useSelector, shallowEqual} from 'react-redux';
+import { useDispatch, useSelector} from 'react-redux';
 import { logoutRequestAction } from '../reducers/user';
-import OrderList from './OrderList';
 
 const MenuHeader = () =>  {
-  const dispatch = useDispatch();
- 
-  const logout = useCallback(() =>{
-      dispatch(logoutRequestAction());
-    //Home으로 이동시키기
-  },[]);
-  const { logoutLoading } = useSelector((state) => state.user)
 
+  const { logoutLoading } = useSelector((state) => state.user)
   const { Order }  = useSelector(state => state.cart);
 
+  const dispatch = useDispatch();
 
+  const logout = useCallback(() =>{
+      dispatch(logoutRequestAction());
+      <Link href ="/"></Link>
+  },[]);
 
   const content = (
     Order.length> 0?

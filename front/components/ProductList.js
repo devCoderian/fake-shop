@@ -1,31 +1,20 @@
-import React, { useCallback, useState, useEffect} from 'react'
-import { List, Button, Space,  Row, Col, Input, Menu} from 'antd'
-import { DollarCircleOutlined, HeartOutlined, HeartTwoTone, ShoppingCartOutlined , UnorderedListOutlined } from '@ant-design/icons';
-
-import { useSelector, useDispatch, shallowEqual} from 'react-redux';
-import { LoadProductAction, searchProductAction} from '../reducers/product';
+import React, { useCallback, useEffect} from 'react'
+import { List, Button, Space,  Row, Col} from 'antd'
+import { DollarCircleOutlined, ShoppingCartOutlined } from '@ant-design/icons';
+import { useSelector, useDispatch} from 'react-redux';
+import { LoadProductAction} from '../reducers/product';
 import { addCartAction } from '../reducers/cart';
-const { Search } = Input;
-const { SubMenu } = Menu;
+import ProductMenu from './ProductMenu';
+
 const ProductList = () => {
-  
-  const { Products, loadProductLoading }  = useSelector(state => state.product);
-  const dispatch = useDispatch();
+
   const { me } = useSelector(state => state.user);
+  const { Products, loadProductLoading }  = useSelector(state => state.product);
+
+  const dispatch = useDispatch();
 
   const LoadProduct = useCallback(() =>{
     dispatch(LoadProductAction(''));
-  },[]);
-
-  const sortProduct = useCallback((val) =>{
-    const categoryParam = `category/${val}`
-    dispatch(LoadProductAction(categoryParam));
-  },[]);
-
-  const onSearch = useCallback((e) =>{
-    if(e.target.value !== ''){
-      dispatch(searchProductAction(e.target.value));
-    }
   },[]);
 
   const addCart = useCallback((item) =>{
@@ -48,27 +37,10 @@ const ProductList = () => {
       <>
         <Row gutter ={[48, 48]} justify="center">
         <Col span = {6}>
-        <Menu
-              mode="inline"
-              defaultOpenKeys={['sub1']}
-              style={{ borderRight: 0 }}
-              selectable ={false}
-            >
-                <Menu.Item key="1">
-                <Search placeholder="input search text"  onChange={(e) => onSearch(e)} onClick={(e) => onSearch(e)} enterButton />
-                </Menu.Item>
-              <SubMenu key="sub1" icon={<UnorderedListOutlined />} title="Product">
-                    <Menu.Item key="3"><div onClick ={() =>LoadProduct()}>All</div></Menu.Item>
-                    <Menu.Item key="4"><div onClick ={() =>sortProduct(`men's clothing`)}>Mens</div></Menu.Item>
-                    <Menu.Item key="5"><div onClick ={() =>sortProduct(`women's clothing`)}>Womens</div></Menu.Item>
-                    <Menu.Item key="6"><div onClick ={() =>sortProduct('jewelery')} >jewelery</div></Menu.Item>
-                    <Menu.Item key="7"><div onClick ={() =>sortProduct('electronics')} >electronics</div></Menu.Item>
-                </SubMenu>
-              </Menu>
+          <ProductMenu />
         </Col> 
        
         <Col span = {18}>
-       
         <List   style={style}
                 itemLayout="vertical"
                 size="large"

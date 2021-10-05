@@ -24,7 +24,6 @@ const LoginForm = () => {
     const onSubmit = useCallback((e) =>{
         e.preventDefault();
         dispatch(loginRequestAction({userId, password}));
-        //setIsLogIn(true);
     },[userId, password]);
 
     return (

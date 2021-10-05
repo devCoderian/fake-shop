@@ -1,36 +1,29 @@
 import React, {useCallback, useMemo} from 'react'
-import { List, Typography, Divider, Row, Col, Button } from 'antd';
-import { MinusCircleOutlined } from '@ant-design/icons';
-import { useSelector, shallowEqual, useDispatch } from 'react-redux';
-import { LoadProductAction } from '../reducers/product';
-import { removeAllCartAction, removeCartAction } from '../reducers/cart';
+import { List, Divider, Row, Col, Button, Modal } from 'antd';
+import { MinusCircleOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
+import { useSelector, useDispatch } from 'react-redux';
+import { removeAllCartAction, removeCartAction} from '../reducers/cart';
 import styled from 'styled-components';
+const { confirm } = Modal;
+
 const OrderList = () => {
     const { me } = useSelector((state) => state.user)
     const { Order }  = useSelector(state => state.cart);
-    console.log(Order);
+ 
     const dispatch = useDispatch();
    
     const ButtonWrapper = styled(Button)`
         margin: 10px;
     `;
 
-    
     const cal = useMemo(() =>{
         let total =  Order.map ((order) =>{
-            const { quantity } = order;
-            console.log( quantity*order.price);
-            return quantity*order.price;
+            return order.quantity*order.price;
         }).reduce((l, r)=> l+r, 0);
         return total.toFixed(2);
-
     },[Order]);
 
-
-   
-
     const removeCart = useCallback((item) =>{
-        // e.stopPropagation();
         dispatch(removeCartAction(item));
     },[Order]);
     
@@ -39,10 +32,36 @@ const OrderList = () => {
         dispatch(removeAllCartAction());
     },[Order]);
 
-    const orderListFooter = () =>{
+    const showOrderConfirm =(() =>{   
+        confirm({
+            title: '주문하시겠습니까?',
+            icon: <ExclamationCircleOutlined />,
+            onOk() {
+                removeAllCart();
+            },
+            onCancel() {
+              console.log('Cancel');
+            },
+          });
+    });
+
     
+    const showDeleteConfirm =(() =>{   
+        confirm({
+            title: '장바구니를 비우시겠습니까?',
+            icon: <ExclamationCircleOutlined />,
+            onOk() {
+                removeAllCart();
+            },
+            onCancel() {
+              console.log('Cancel');
+            },
+          });
+    });
+
+    const orderListFooter = () =>{
         return(
-            Order.length>0?
+            Order.length>0&&
             <>
                 <Divider></Divider>
                 <Row justify="space-between">
@@ -50,13 +69,12 @@ const OrderList = () => {
                     총 금액: $ {cal}
                     </Col>
                     <Col xs={{ span: 6, offset: 1 }} lg={{ span: 6, offset: 4}}>
-                    <ButtonWrapper>주문하기</ButtonWrapper>
-                    <ButtonWrapper onClick ={() => removeAllCart()}>전체 비우기</ButtonWrapper>
+                    <ButtonWrapper onClick ={() => showOrderConfirm() }>주문하기</ButtonWrapper>
+                    <ButtonWrapper onClick ={() => showDeleteConfirm() }>전체 비우기</ButtonWrapper>
                     </Col>
                  
                 </Row>
             </>
-            :null
         )
     }
 
@@ -87,7 +105,7 @@ const OrderList = () => {
                     </List.Item>
                 )}
                 />
-        </Col>
+            </Col>
          </Row>
         </>
     )
