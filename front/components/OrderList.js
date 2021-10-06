@@ -1,11 +1,11 @@
 import React, {useCallback, useMemo} from 'react'
-import { List, Divider, Row, Col, Button, Modal } from 'antd';
-import { MinusCircleOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
+import { List, Divider, Row, Col, Button } from 'antd';
+import { MinusCircleOutlined } from '@ant-design/icons';
 import { useSelector, useDispatch } from 'react-redux';
 import { removeAllCartAction, removeCartAction} from '../reducers/cart';
 import styled from 'styled-components';
-const { confirm } = Modal;
-
+// const { confirm } = Modal;
+import ConfirmModal from './ConfirmModal'
 const OrderList = () => {
     const { me } = useSelector((state) => state.user)
     const { Order }  = useSelector(state => state.cart);
@@ -33,30 +33,10 @@ const OrderList = () => {
     },[Order]);
 
     const showOrderConfirm =(() =>{   
-        confirm({
-            title: '주문하시겠습니까?',
-            icon: <ExclamationCircleOutlined />,
-            onOk() {
-                removeAllCart();
-            },
-            onCancel() {
-              console.log('Cancel');
-            },
-          });
+        ConfirmModal('주문하시겠습니까?',removeAllCart);
     });
-
-    
     const showDeleteConfirm =(() =>{   
-        confirm({
-            title: '장바구니를 비우시겠습니까?',
-            icon: <ExclamationCircleOutlined />,
-            onOk() {
-                removeAllCart();
-            },
-            onCancel() {
-              console.log('Cancel');
-            },
-          });
+        ConfirmModal('장바구니를 비우시겠습니까?',removeAllCart);
     });
 
     const orderListFooter = () =>{

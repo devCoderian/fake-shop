@@ -18,7 +18,8 @@ const ProductList = () => {
   },[]);
 
   const addCart = useCallback((item) =>{
-    dispatch(addCartAction(item));
+    let product = {...item, quantity: 1};
+    dispatch(addCartAction(product));
   },[]);
 
   useEffect(() => {
@@ -41,41 +42,34 @@ const ProductList = () => {
         </Col> 
        
         <Col span = {18}>
-        <List   style={style}
-                itemLayout="vertical"
-                size="large"
-                pagination={{
-                onChange: page => {
-                    console.log(page);
-                },
-                pageSize: 5,
-                }}
-                loading = {loadProductLoading}
-                dataSource={Products}
-                renderItem={item => (
-                <List.Item
-                    key={item.id}
-                    actions={[
-                    <IconText icon={DollarCircleOutlined} text={item.price} key="list-vertical-star-o" />,
-                    me&& <Button icon={<ShoppingCartOutlined />} onClick={() =>addCart(item)}>
-                    </Button>,
-                    ]}
-                    extra={
-                    <img
-                        width={150}
-                        height ={200}
-                        alt="logo"
-                        src={item.image}
-                    />
-                    }
-                >
-                    <List.Item.Meta
-                    title={<a href={item.href}>{item.title}</a>}
-                    description={item.description}
-                    />
-                    {item.content}
-                </List.Item>
-            )}
+        <List style={style}
+              itemLayout="vertical"
+              size="large"
+              pagination= {{pageSize: 5,}}
+              loading = {loadProductLoading}
+              dataSource={Products}
+              renderItem={item => (
+              <List.Item
+                  key={item.id}
+                  actions={[
+                  <IconText icon={DollarCircleOutlined} text={item.price} key="list-vertical-star-o" />,
+                  me&& <Button icon={<ShoppingCartOutlined />} onClick={() =>addCart(item)}></Button>,
+                  ]}
+                  extra={
+                  <img
+                      width={150}
+                      height ={200}
+                      alt="logo"
+                      src={item.image}
+                  />
+                  }>
+                  <List.Item.Meta
+                  title={<a href={item.href}>{item.title}</a>}
+                  description={item.description}
+                  />
+                  {item.content}
+              </List.Item>
+          )}
         />
           </Col>
         </Row>

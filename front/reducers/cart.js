@@ -1,20 +1,20 @@
 const initialState = {
-            id:1,
-            User:{
-                id: 1,
-                userId: 'ian'
-            },
-            Order:[
-            //     {
-            //     id: null,
-            //     title: null,
-            //     price: null,
-            //     quantity: 0
-            // }
-        ],
-        LoadOrderLoading: false,
-        LoadOrdertDone: false,
-        LoadOrderError: null,
+    id:1,
+    User:{
+        id: 1,
+        userId: 'ian'
+    },
+    Order:[
+    //     {
+    //     id: null,
+    //     title: null,
+    //     price: null,
+    //     quantity: 0
+    // }
+],
+LoadOrderLoading: false,
+LoadOrdertDone: false,
+LoadOrderError: null,
 }
 
 export const ADD_CART_REQUEST = 'ADD_CART_REQUEST';
@@ -44,16 +44,16 @@ export const addCartAction = (data) => {
 }
 
 export const removeCartAction = (data) => {
-    return{
-        type: REMOVE_CART_REQUEST,
-        data
-    }
+return{
+type: REMOVE_CART_REQUEST,
+data
+}
 }
 
 export const removeAllCartAction = () => {
-    return{
-        type: REMOVE_ALL_CART_REQUEST
-    }
+return{
+type: REMOVE_ALL_CART_REQUEST
+}
 }
 
 // const dummyProduct = {
@@ -78,73 +78,90 @@ export const removeAllCartAction = () => {
 
 
 const reducer = (state = initialState, action) => {
-    switch(action.type){
-        case ADD_CART_REQUEST:{
-           
-            return{
-                ...state,
-                LoadOrderLoading: true,
-                LoadOrdertDone: false,
-            }
+switch(action.type){
+case ADD_CART_REQUEST:{
+   
+    return{
+        ...state,
+        LoadOrderLoading: true,
+        LoadOrdertDone: false,
+    }
+}
+case ADD_CART_SUCCEESS:{
+    // console.log('처음',action.data);
+    // }
+    let checkList = [...state.Order]
+    const check = checkList.find(order =>order.id === action.data.id);
+    console.log('check',check);
+    if(check === undefined){
+        console.log('처음');
+            // action.data.quantity = 1;
+        return{
+            ...state,
+            Order: [action.data, ...state.Order],
+            LoadOrderLoading: false,
+            LoadOrdertDone: true
         }
-        case ADD_CART_SUCCEESS:{
-            console.log(action.data.id);
-            console.log(...state.Order,action.data.id);
-            let Order = [...state.Order];
-            const check = Order.find(order =>order.id === action.data.id);
-                if(check === undefined){
-                    console.log(check,'check')
-                    action.data.quantity = 1;
-                        return{
-                            ...state,
-                            Order: [action.data, ...state.Order],
-                            LoadOrderLoading: false,
-                            LoadOrdertDone: true
-                        }
-                }else{
-                Order.map((order)=>{
-                  console.log('중복')
-                  action.data.quantity = order.quantity+1;
-                  return{
+    }else{
+        console.log('중복');
+        checkList.map((order)=>{
+            if(check.id === order.id){
+                order.quantity++;
+                return{
                     ...state,
-                    Order: [...state.Order, { quantity: action.data.quantity}],
+                    Order: [...state.Order],
                     LoadOrderLoading: false,
                     LoadOrdertDone: true
                     }
-                })
             }
-        }
-        case REMOVE_CART_REQUEST:{
-            return{
-                ...state
-            }
-        }
-
-        case REMOVE_CART_SUCCEESS:{
-            let Order = [...state.Order];
-            Order.filter(order => order.id !== action.data);
-            console.log('remove',Order);
-            return{
-                ...state,
-                Order:Order.filter(order => order.id !== action.data)
-            }
-        }
-
-        case REMOVE_ALL_CART_REQUEST:{
-            return{
-                ...state
-            }
-        }
-        case REMOVE_ALL_CART_SUCCEESS:{
-            console.log('removeALLALL',...state.Order.splice(0));
-            return{
-                ...state,
-                Order: [],
-            }
-        }
-        default:
-            return state;
+          })
+      }
+        // console.log('중복')
+        // let copy = [...state.Order]
+        // copy[found].quantity+= action.data.quantity
+        // console.log(copy)
+        // return{
+        //     ...state,
+        //     ...state.Order[found].quantity++,
+        //     // Order: [...state.Order],
+        //     Order: [...state.Order],
+           
+        //     LoadOrderLoading: false,
+        //     LoadOrdertDone: true
+        // }
+  
+}
+case REMOVE_CART_REQUEST:{
+    return{
+        ...state
     }
+}
+
+case REMOVE_CART_SUCCEESS:{
+    let Order = [...state.Order];
+    Order.filter(order => order.id !== action.data);
+    console.log('remove',Order);
+    return{
+        ...state,
+        Order:Order.filter(order => order.id !== action.data)
+    }
+}
+
+case REMOVE_ALL_CART_REQUEST:{
+    return{
+        ...state
+    }
+}
+case REMOVE_ALL_CART_SUCCEESS:{
+    console.log('removeALLALL',...state.Order.splice(0));
+    return{
+        ...state,
+        Order: [],
+    }
+}
+default:
+    return state;
+}
 };
 
 export default reducer;

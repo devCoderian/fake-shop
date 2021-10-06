@@ -2,10 +2,8 @@ import React,{useRef, useState,useMemo} from 'react'
 import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux';
 
-import { Layout, Menu, PageHeader, Button} from 'antd';
-import { UnorderedListOutlined, HomeOutlined, ShoppingCartOutlined} from '@ant-design/icons';
-const { SubMenu } = Menu;
-const { Content, Sider } = Layout;
+import { Layout,  PageHeader, Button} from 'antd';
+const { Content } = Layout;
 
 import MenuHeader from './MenuHeader';
 import LoginFrom from './LoginForm';
