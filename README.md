@@ -7,18 +7,19 @@
 ##### 2) 로그인 기능 추가
 ##### 3) 스타일링 라이브러리 PrimeReact에서 antd로 변경
 
-기존 버전
-https://github.com/devCoderian/shoppingCart
+##### 기존 버전
+##### https://github.com/devCoderian/shoppingCart
 
 ## To use this application
 
 In the project directory, you can run:
 
-### cd font
+### cd front
 ### Type " npm install " inside the font directory
 ### Type " npm run dev " inside the font directory
 
 ## Skill
+
 FE
 react, redux, antdesign
 
