@@ -14,9 +14,10 @@
 
 In the project directory, you can run:
 
-### cd front
-### Type " npm install " inside the font directory
-### Type " npm run dev " inside the font directory
+##### cd front
+#####  Type " npm install " inside the font directory
+##### Type " npm run dev " inside the font directory
+
 
 ## Skill
 
@@ -31,8 +32,7 @@ react, redux, antdesign
 
 ### 2) 장바구니 기능(담기, 삭제, 계산)
 ![image](https://user-images.githubusercontent.com/87194565/142161467-b228385b-92be-4838-9b03-faece2e023c1.png)
-
-![image](https://user-images.githubusercontent.com/87194565/142161502-0cf08928-171a-486b-9626-09d046b8693b.png)
+![image](https://user-images.githubusercontent.com/87194565/142162138-4bbc095d-152c-486b-9dfc-e4ecc3f5f041.png)
 
 ### 3) 검색 기능
 ![image](https://user-images.githubusercontent.com/87194565/132991713-b21828a4-99df-4675-a66a-e1cb51f02907.png)
