@@ -35,7 +35,8 @@ react, redux, antdesign
 ![image](https://user-images.githubusercontent.com/87194565/142162138-4bbc095d-152c-486b-9dfc-e4ecc3f5f041.png)
 
 ### 3) 검색 기능
-![image](https://user-images.githubusercontent.com/87194565/132991713-b21828a4-99df-4675-a66a-e1cb51f02907.png)
+![image](https://user-images.githubusercontent.com/87194565/142172157-a35270e8-19c3-4740-a70f-36210ee4b5a7.png)
+
 
 ### 4) 로그인 기능
 ![image](https://user-images.githubusercontent.com/87194565/142161746-6b23f17b-e00e-4dc3-8068-7baded9caa73.png)
