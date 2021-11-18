@@ -12,6 +12,8 @@
 
 ## To use this application
 
+### 빌드 : http://react-fake-shop.s3-website.us-east-2.amazonaws.com/
+
 In the project directory, you can run:
 
 ##### cd front
